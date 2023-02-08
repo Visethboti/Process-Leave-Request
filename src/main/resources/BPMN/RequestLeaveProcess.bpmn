@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0gl9dsb" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.6.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.1.0">
+  <bpmn:collaboration id="Collaboration_09polts">
+    <bpmn:participant id="Participant_RequestLeave" name="Request Leave" processRef="Process_RequestLeave" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_RequestLeave" name="Request Leave" isExecutable="true">
+    <bpmn:extensionElements>
+      <zeebe:userTaskForm id="userTaskForm_0eg34ra">{
+  "components": [
+    {
+      "text": "# Leave Request",
+      "type": "text",
+      "id": "Field_1lq8qvh"
+    },
+    {
+      "label": "Start Date",
+      "type": "textfield",
+      "id": "Field_19bnn0z",
+      "key": "field_startDate",
+      "validate": {
+        "required": true
+      },
+      "description": "Format - DD.MM.YYYY"
+    },
+    {
+      "label": "End Date",
+      "type": "textfield",
+      "id": "Field_07wp82h",
+      "key": "field_endDate",
+      "validate": {
+        "required": true
+      },
+      "description": "Format - DD.MM.YYYY"
+    },
+    {
+      "label": "Comment",
+      "type": "textfield",
+      "id": "Field_1qtcicm",
+      "key": "field_comment",
+      "validate": {
+        "required": true
+      }
+    }
+  ],
+  "type": "default",
+  "id": "Form_RequestLeave",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.1.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.6.0"
+  },
+  "schemaVersion": 5
+}</zeebe:userTaskForm>
+      <zeebe:userTaskForm id="userTaskForm_1hm6hhm">{
+  "components": [
+    {
+      "text": "# Review Leave Request",
+      "type": "text",
+      "id": "Field_1xcn8zl"
+    },
+    {
+      "label": "Start Date",
+      "type": "textfield",
+      "id": "Field_1hcssdc",
+      "key": "field_startDate",
+      "disabled": true
+    },
+    {
+      "label": "End Date",
+      "type": "textfield",
+      "id": "Field_1gepgup",
+      "key": "field_endDate",
+      "disabled": true
+    },
+    {
+      "label": "Comment",
+      "type": "textfield",
+      "id": "Field_1csso87",
+      "key": "field_comment",
+      "disabled": true
+    },
+    {
+      "values": [
+        {
+          "label": "Approved",
+          "value": "approved"
+        },
+        {
+          "label": "Rejected",
+          "value": "rejected"
+        },
+        {
+          "label": "Additional Information",
+          "value": "additional"
+        }
+      ],
+      "label": "Decision",
+      "type": "radio",
+      "id": "Field_0ndgexs",
+      "key": "field_decision",
+      "validate": {
+        "required": true
+      }
+    }
+  ],
+  "type": "default",
+  "id": "Form_ReviewRequest",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.1.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.6.0"
+  },
+  "schemaVersion": 5
+}</zeebe:userTaskForm>
+      <zeebe:userTaskForm id="userTaskForm_23ms3ki">{
+  "components": [
+    {
+      "text": "# Leave Request",
+      "type": "text",
+      "id": "Field_1lq8qvh"
+    },
+    {
+      "label": "Start Date",
+      "type": "textfield",
+      "id": "Field_19bnn0z",
+      "key": "field_startDate",
+      "validate": {
+        "required": true
+      },
+      "description": "Format - DD.MM.YYYY"
+    },
+    {
+      "label": "End Date",
+      "type": "textfield",
+      "id": "Field_07wp82h",
+      "key": "field_endDate",
+      "validate": {
+        "required": true
+      },
+      "description": "Format - DD.MM.YYYY"
+    },
+    {
+      "label": "Comment",
+      "type": "textfield",
+      "id": "Field_1qtcicm",
+      "key": "field_comment",
+      "validate": {
+        "required": true
+      }
+    }
+  ],
+  "type": "default",
+  "id": "Form_RequestLeave",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.1.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.6.0"
+  },
+  "schemaVersion": 5
+}</zeebe:userTaskForm>
+    </bpmn:extensionElements>
+    <bpmn:laneSet id="LaneSet_1rc7skb">
+      <bpmn:lane id="Lane_employee" name="Employee">
+        <bpmn:flowNodeRef>Activity_ProvideAdditionalInformation</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>StartEvent_1</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_manager" name="Manager">
+        <bpmn:flowNodeRef>Activity_ReviewLeaveRequest</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_Decision</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_0i1qdll</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_NotifyEmployee</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_LogRequest</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:userTask id="Activity_ReviewLeaveRequest" name="Review Leave Request">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formKey="camunda-forms:bpmn:userTaskForm_1hm6hhm" />
+        <zeebe:assignmentDefinition candidateUsers="=manager" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1a1w9ky</bpmn:incoming>
+      <bpmn:incoming>Flow_11znf9p</bpmn:incoming>
+      <bpmn:outgoing>Flow_02sg4fr</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Activity_ProvideAdditionalInformation" name="Provide Additional Information">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formKey="camunda-forms:bpmn:userTaskForm_23ms3ki" />
+        <zeebe:assignmentDefinition assignee="=user_submitted" candidateUsers="=employee" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_01sc5c2</bpmn:incoming>
+      <bpmn:outgoing>Flow_1a1w9ky</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="Gateway_Decision" name="Decision?">
+      <bpmn:extensionElements />
+      <bpmn:incoming>Flow_02sg4fr</bpmn:incoming>
+      <bpmn:outgoing>Flow_0w4w7ny</bpmn:outgoing>
+      <bpmn:outgoing>Flow_01sc5c2</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1vu8atd</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="Event_0i1qdll" name="Leave Request Processed">
+      <bpmn:incoming>Flow_08837e3</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:manualTask id="Activity_NotifyEmployee" name="Notify Employee">
+      <bpmn:incoming>Flow_0w4w7ny</bpmn:incoming>
+      <bpmn:incoming>Flow_0hk1xjo</bpmn:incoming>
+      <bpmn:outgoing>Flow_08837e3</bpmn:outgoing>
+    </bpmn:manualTask>
+    <bpmn:manualTask id="Activity_LogRequest" name="Log Request">
+      <bpmn:incoming>Flow_1vu8atd</bpmn:incoming>
+      <bpmn:outgoing>Flow_0hk1xjo</bpmn:outgoing>
+    </bpmn:manualTask>
+    <bpmn:startEvent id="StartEvent_1" name="Submitted Leave Request">
+      <bpmn:extensionElements />
+      <bpmn:outgoing>Flow_11znf9p</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1a1w9ky" sourceRef="Activity_ProvideAdditionalInformation" targetRef="Activity_ReviewLeaveRequest" />
+    <bpmn:sequenceFlow id="Flow_11znf9p" sourceRef="StartEvent_1" targetRef="Activity_ReviewLeaveRequest" />
+    <bpmn:sequenceFlow id="Flow_02sg4fr" sourceRef="Activity_ReviewLeaveRequest" targetRef="Gateway_Decision" />
+    <bpmn:sequenceFlow id="Flow_01sc5c2" name="Information Required" sourceRef="Gateway_Decision" targetRef="Activity_ProvideAdditionalInformation">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=field_decision = "additional"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0w4w7ny" name="Rejected" sourceRef="Gateway_Decision" targetRef="Activity_NotifyEmployee">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=field_decision = "rejected"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1vu8atd" name="Approved" sourceRef="Gateway_Decision" targetRef="Activity_LogRequest">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=field_decision = "approved"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_08837e3" sourceRef="Activity_NotifyEmployee" targetRef="Event_0i1qdll" />
+    <bpmn:sequenceFlow id="Flow_0hk1xjo" sourceRef="Activity_LogRequest" targetRef="Activity_NotifyEmployee" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_09polts">
+      <bpmndi:BPMNShape id="Participant_1n8cw40_di" bpmnElement="Participant_RequestLeave" isHorizontal="true">
+        <dc:Bounds x="160" y="80" width="820" height="390" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_1rjdzro_di" bpmnElement="Lane_manager" isHorizontal="true">
+        <dc:Bounds x="190" y="217" width="790" height="253" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_1wwal6h_di" bpmnElement="Lane_employee" isHorizontal="true">
+        <dc:Bounds x="190" y="80" width="790" height="137" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_002f1y6_di" bpmnElement="Activity_ReviewLeaveRequest">
+        <dc:Bounds x="390" y="250" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1kxr62h_di" bpmnElement="Activity_ProvideAdditionalInformation">
+        <dc:Bounds x="390" y="110" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_094wurd_di" bpmnElement="Gateway_Decision" isMarkerVisible="true">
+        <dc:Bounds x="565" y="265" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="566" y="322" width="49" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0i1qdll_di" bpmnElement="Event_0i1qdll">
+        <dc:Bounds x="902" y="272" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="883" y="315" width="74" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1856qbb_di" bpmnElement="Activity_NotifyEmployee">
+        <dc:Bounds x="750" y="250" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_039mpao_di" bpmnElement="Activity_LogRequest">
+        <dc:Bounds x="640" y="360" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="262" y="132" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="239" y="108" width="83" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1a1w9ky_di" bpmnElement="Flow_1a1w9ky">
+        <di:waypoint x="440" y="190" />
+        <di:waypoint x="440" y="250" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_11znf9p_di" bpmnElement="Flow_11znf9p">
+        <di:waypoint x="280" y="168" />
+        <di:waypoint x="280" y="290" />
+        <di:waypoint x="390" y="290" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_02sg4fr_di" bpmnElement="Flow_02sg4fr">
+        <di:waypoint x="490" y="290" />
+        <di:waypoint x="565" y="290" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_01sc5c2_di" bpmnElement="Flow_01sc5c2">
+        <di:waypoint x="590" y="265" />
+        <di:waypoint x="590" y="150" />
+        <di:waypoint x="490" y="150" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="592" y="176" width="56" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0w4w7ny_di" bpmnElement="Flow_0w4w7ny">
+        <di:waypoint x="615" y="290" />
+        <di:waypoint x="750" y="290" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="662" y="256" width="44" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1vu8atd_di" bpmnElement="Flow_1vu8atd">
+        <di:waypoint x="590" y="315" />
+        <di:waypoint x="590" y="400" />
+        <di:waypoint x="640" y="400" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="581" y="355" width="48" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_08837e3_di" bpmnElement="Flow_08837e3">
+        <di:waypoint x="850" y="290" />
+        <di:waypoint x="902" y="290" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0hk1xjo_di" bpmnElement="Flow_0hk1xjo">
+        <di:waypoint x="690" y="360" />
+        <di:waypoint x="690" y="345" />
+        <di:waypoint x="800" y="345" />
+        <di:waypoint x="800" y="330" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

@@ -29,7 +29,8 @@ class SecurityConfig {
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.authorizeRequests().requestMatchers("/Employee*").hasRole("Employee").anyRequest().permitAll();
+		http.authorizeRequests().requestMatchers("/Employee*").hasRole("Employee").requestMatchers("/Manager*")
+				.hasRole("Manager");
 		http.oauth2Login().and().logout().addLogoutHandler(keycloakLogoutHandler).logoutSuccessUrl("/");
 		http.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
 		return http.build();

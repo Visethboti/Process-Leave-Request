@@ -54,11 +54,7 @@ public class EmployeeController {
 		String username = auth.getName();
 
 		Map<String, Object> map = Map.of("user_submitted", username, "field_startDate", leaveRequest.getStartDate(),
-				"field_endDate", leaveRequest.getEndDate(), "field_comment", leaveRequest.getComment()); // need to
-																											// implement
-																											// get
-		// authentication which
-		// user submitted
+				"field_endDate", leaveRequest.getEndDate(), "field_comment", leaveRequest.getComment());
 
 		// Start Process
 		final ProcessInstanceEvent event = zeebeClient.newCreateInstanceCommand().bpmnProcessId("Process_RequestLeave")

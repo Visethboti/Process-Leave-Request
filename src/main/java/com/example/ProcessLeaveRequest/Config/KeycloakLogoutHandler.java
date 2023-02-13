@@ -29,6 +29,7 @@ public class KeycloakLogoutHandler implements LogoutHandler {
 	}
 
 	private void logoutFromKeycloak(OidcUser user) {
+		System.out.println(user.getAuthorities());
 		String endSessionEndpoint = user.getIssuer() + "/protocol/openid-connect/logout";
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(endSessionEndpoint)
 				.queryParam("id_token_hint", user.getIdToken().getTokenValue());

@@ -3,6 +3,8 @@ package com.example.ProcessLeaveRequest.Controller;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,7 +49,11 @@ public class EmployeeController {
 	public String startRequestLeaveProcess(@ModelAttribute("LeaveRequest") LeaveRequest leaveRequest)
 			throws TaskListException {
 
-		Map<String, Object> map = Map.of("user_submitted", "demo", "field_startDate", leaveRequest.getStartDate(),
+		// get user name
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String username = auth.getName();
+
+		Map<String, Object> map = Map.of("user_submitted", username, "field_startDate", leaveRequest.getStartDate(),
 				"field_endDate", leaveRequest.getEndDate(), "field_comment", leaveRequest.getComment()); // need to
 																											// implement
 																											// get
@@ -60,7 +66,7 @@ public class EmployeeController {
 
 		System.out.println("Process instance started successfully!");
 
-		return "redirect:/Employee/RequestLeave";
+		return "redirect:/Employee";
 	}
 
 }

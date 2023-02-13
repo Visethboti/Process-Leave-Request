@@ -178,7 +178,7 @@
     <bpmn:userTask id="Activity_ReviewLeaveRequest" name="Review Leave Request">
       <bpmn:extensionElements>
         <zeebe:formDefinition formKey="camunda-forms:bpmn:userTaskForm_1hm6hhm" />
-        <zeebe:assignmentDefinition candidateUsers="=manager" />
+        <zeebe:assignmentDefinition candidateGroups="=manager" />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1a1w9ky</bpmn:incoming>
       <bpmn:incoming>Flow_11znf9p</bpmn:incoming>

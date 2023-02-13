@@ -1,5 +1,6 @@
 package com.example.ProcessLeaveRequest.Controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import io.camunda.tasklist.auth.SelfManagedAuthentication;
 import io.camunda.tasklist.dto.Task;
 import io.camunda.tasklist.dto.TaskList;
 import io.camunda.tasklist.dto.TaskState;
+import io.camunda.tasklist.dto.Variable;
 import io.camunda.tasklist.exception.TaskListException;
 import io.camunda.zeebe.client.ZeebeClient;
 import io.camunda.zeebe.client.api.response.ProcessInstanceEvent;
@@ -40,13 +42,26 @@ public class ManagerController {
 
 		// get list of all review leave request task from tasklist
 		TaskList tasks = client.getTasks(false, TaskState.CREATED, 50);
+
+//				client.getGroupTasks("manager", TaskState.CREATED, 10);
+
 		for (Task task : tasks) {
 			System.out.println("task ID: " + task.getId());
+			System.out.println(task.getProcessDefinitionId());
+			System.out.println(task.getTaskDefinitionId());
+			System.out.println(task.getCandidateGroups());
+			List<Variable> variables = task.getVariables();
+			for (Variable v : variables) {
+				System.out.println(v.getName() + " : " + v.getValue());
+
+			}
+			System.out.println("-----------------------");
+
 		}
 
 		// add list to model
 
-		return "login";
+		return "manager-review-request-list";
 	}
 
 	@GetMapping(value = { "/LeaveRequestList" })

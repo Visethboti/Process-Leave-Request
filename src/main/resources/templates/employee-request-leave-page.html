@@ -20,6 +20,7 @@
 <body style="background: #f0f0f0;">
 
 	<div class="container" >
+		<a th:href="@{/logout}" class="btn btn-secondary btn-lg">logout</a>	
 		<form action="#" th:action="@{/Employee/RequestLeave}"
     						 th:object="${leaveRequest}" method="POST"  class="col-md-8 offset-md-2" >
 			

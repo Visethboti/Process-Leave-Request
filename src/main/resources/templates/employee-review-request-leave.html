@@ -21,19 +21,20 @@
 
 	<div class="container" >
 		<a th:href="@{/logout}" class="btn btn-secondary btn-lg">logout</a>	
-		<form action="#" th:action="@{/Employee/RequestLeave}"
+		<form action="#" th:action="@{/Employee/ProcessReviewRequestLeave(taskID=${taskID})}"
     						 th:object="${leaveRequest}" method="POST"  class="col-md-8 offset-md-2" >
 			
 			<label class="form-check-label" for="startDate">Start Date</label>
-			<input type="date" th:field="*{startDate}" class="form-control mb-2" placeholder="Start Date" required>  
+			<input type="date" th:field="*{startDate}" class="form-control mb-2" placeholder="Start Date" readonly>  
 			
 			<label class="form-check-label" for="endDate">End Date</label>
-			<input type="date" th:field="*{endDate}" class="form-control mb-2" placeholder="End Date" required> 
+			<input type="date" th:field="*{endDate}" class="form-control mb-2" placeholder="End Date" readonly> 
 			
 			<label class="form-check-label" for="comment">Comment</label>
-			<input type="text" th:field="*{comment}" class="formRequestLeaveList-control mb-2" placeholder="Comment" required>  
+			<input type="text" th:field="*{comment}" class="form-control mb-2" placeholder="Comment" required>  
 			
 			<input type="hidden" th:field="*{decision}">  
+			<input type="hidden" th:field="*{employeeUsername}">  
 			
 			<button type="submit" class="btn btn-secondary btn-lg btn-block">Save</button> 
 		</form>

@@ -10,17 +10,20 @@ public class LeaveRequest {
 
 	private String decision;
 
+	private String employeeUsername;
+
 	// constructors
 
 	public LeaveRequest() {
 	}
 
-	public LeaveRequest(String startDate, String endDate, String comment, String decision) {
+	public LeaveRequest(String startDate, String endDate, String comment, String decision, String employeeUsername) {
 		super();
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.comment = comment;
 		this.decision = decision;
+		this.employeeUsername = employeeUsername;
 	}
 
 	// getter and setter
@@ -57,11 +60,20 @@ public class LeaveRequest {
 		this.decision = decision;
 	}
 
+	public String getEmployeeUsername() {
+		return employeeUsername;
+	}
+
+	public void setEmployeeUsername(String employeeUsername) {
+		this.employeeUsername = employeeUsername;
+	}
+
 	// toString
 
 	@Override
 	public String toString() {
 		return "LeaveRequest [startDate=" + startDate + ", endDate=" + endDate + ", comment=" + comment + ", decision="
-				+ decision + "]";
+				+ decision + ", employeeUsername=" + employeeUsername + "]";
 	}
+
 }

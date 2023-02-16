@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.ProcessLeaveRequest.Entity.LeaveRequest;
 
+import io.camunda.tasklist.CamundaTaskListClient;
+import io.camunda.tasklist.auth.SelfManagedAuthentication;
+import io.camunda.tasklist.dto.TaskList;
+import io.camunda.tasklist.dto.TaskState;
 import io.camunda.tasklist.exception.TaskListException;
 import io.camunda.zeebe.client.ZeebeClient;
 import io.camunda.zeebe.client.api.response.ProcessInstanceEvent;
@@ -63,6 +67,27 @@ public class EmployeeController {
 		System.out.println("Process instance started successfully!");
 
 		return "redirect:/Employee";
+	}
+
+	@GetMapping("/RequestLeaveList")
+	public String showRequestLeaveList(Model theModel) throws TaskListException {
+
+		// auth to tasklist
+		SelfManagedAuthentication sma = new SelfManagedAuthentication().clientId("tasklist")
+				.clientSecret("XALaRPl5qwTEItdwCMiPS62nVpKs7dL7").keycloakUrl("http://localhost:18080")
+				.keycloakRealm("camunda-platform");
+
+		CamundaTaskListClient client = new CamundaTaskListClient.Builder().shouldReturnVariables()
+				.taskListUrl("http://localhost:8082/").authentication(sma).build();
+
+		// get all tasks assigned to this user
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		TaskList tasks = client.getAssigneeTasks(auth.getName(), TaskState.CREATED, 10);
+
+		// add to model
+		theModel.addAttribute("tasks", tasks);
+
+		return "employee-request-leave-list";
 	}
 
 }

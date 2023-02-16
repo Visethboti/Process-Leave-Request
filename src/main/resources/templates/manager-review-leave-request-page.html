@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	
+	<title>Request Leave Process</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<!-- Reference Bootstrap files -->
+	<link rel="stylesheet"
+		 href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	
+	<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+
+<body style="background: #f0f0f0;">
+
+	<div class="container" >
+		<form action="#" th:action="@{/Manager/ProcessReviewLeaveRequest(taskID=${taskID})}"
+    						 th:object="${leaveRequest}" method="POST"  class="col-md-8 offset-md-2" >
+    						 
+			<label class="form-check-label" for="comment">Employee Username</label>
+			<input type="text" th:field="*{employeeUsername}" class="form-control mb-2" readonly>  
+			
+			<label class="form-check-label" for="startDate">Start Date</label>
+			<input type="text" th:field="*{startDate}" class="form-control mb-2" readonly>  
+			
+			<label class="form-check-label" for="endDate">End Date</label>
+			<input type="text" th:field="*{endDate}" class="form-control mb-2" readonly> 
+			
+			<label class="form-check-label" for="comment">Comment</label>
+			<input type="text" th:field="*{comment}" class="form-control mb-2" readonly>  
+			
+			<div class="form-check form-check-inline">
+				<input type="radio" th:field="*{decision}" th:value="approved" id="sexmale" class="form-check-input" required/>
+		    	<label class="form-check-label">Approved</label>
+			</div>
+   			<div class="form-check form-check-inline">
+    			<input type="radio" th:field="*{decision}" th:value="rejected" id="sexfemale" class="form-check-input" required/>
+			    <label class="form-check-label">Rejected</label>
+   			</div>
+   			<div class="form-check form-check-inline">
+    			<input type="radio" th:field="*{decision}" th:value="additional" id="sexfemale" class="form-check-input" required/>
+			    <label class="form-check-label">Additional Information</label>
+   			</div>
+   			
+   			<input type="hidden" th:field="*{employeeUsername}">  
+			
+			<button type="submit" class="btn btn-secondary btn-lg btn-block">Save</button> 
+		</form>
+	</div>
+
+</body>
+</html>
